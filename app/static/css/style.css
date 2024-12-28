@@ -1,0 +1,91 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: arial, helvetica, sans-serif;
+    line-height: 1.6;
+    background: #eef2ff;
+    color: #000;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Navigation */
+nav {
+    background: #d6daf0;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+nav a {
+    margin-right: 10px;
+    color: #34345c;
+    text-decoration: none;
+}
+
+/* Forms */
+form {
+    background: #d6daf0;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+button {
+    background: #34345c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Threads and Posts */
+.thread-preview,
+.post,
+.op-post {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #d6daf0;
+}
+
+.thread-preview h3 {
+    color: #34345c;
+    margin-bottom: 10px;
+}
+
+img {
+    max-width: 250px;
+    height: auto;
+    margin: 10px 0;
+}
+
+.post-info {
+    color: #666;
+    font-size: 0.8em;
+}
+
+/* Links */
+a {
+    color: #34345c;
+}
+
+a:hover {
+    text-decoration: underline;
+}
