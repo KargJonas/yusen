@@ -3,7 +3,6 @@ from app.models import Board
 
 app = create_app()
 
-
 def init_db():
     with app.app_context():
         # Create initial boards if they don't exist
@@ -16,7 +15,6 @@ def init_db():
             for board in boards:
                 db.session.add(board)
             db.session.commit()
-
 
 if __name__ == '__main__':
     init_db()  # Initialize the database with some boards

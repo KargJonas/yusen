@@ -1,4 +1,5 @@
 /* Reset and base styles */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -79,6 +80,180 @@ img {
 .post-info {
     color: #666;
     font-size: 0.8em;
+}
+
+/* Index Page Styles */
+.welcome-banner {
+    background: linear-gradient(135deg, #34345c, #545484);
+    color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.welcome-banner h1 {
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+}
+
+.site-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.boards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.board-card {
+    background: white;
+    border: 1px solid #d6daf0;
+    border-radius: 6px;
+    padding: 1rem;
+    transition: transform 0.2s;
+}
+
+.board-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.board-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.board-description {
+    display: block;
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.board-stats {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    font-size: 0.9rem;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+}
+
+.last-post {
+    color: #666;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.recent-activity {
+    background: white;
+    border: 1px solid #d6daf0;
+    border-radius: 6px;
+    padding: 1.5rem;
+}
+
+.recent-thread-card {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.recent-thread-card:last-child {
+    border-bottom: none;
+}
+
+.thread-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.thread-title {
+    font-weight: 500;
+    color: #34345c;
+}
+
+.thread-board {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.thread-preview {
+    display: flex;
+    gap: 1rem;
+    margin: 0.5rem 0;
+}
+
+.preview-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.preview-text {
+    font-size: 0.9rem;
+    color: #444;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.thread-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-banner {
+        padding: 1.5rem;
+    }
+
+    .welcome-banner h1 {
+        font-size: 2rem;
+    }
+
+    .boards-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Links */

@@ -22,7 +22,7 @@
     {% endif %}
     <p>{{ thread.content }}</p>
     <a href="{{ url_for('main.thread', board_name=board.name, thread_id=thread.id) }}">
-        Reply ({{ thread.posts|length }} responses)
+        Reply ({{ thread.posts|length }} replies)
     </a>
 </div>
 {% endfor %}

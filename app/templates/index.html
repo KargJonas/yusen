@@ -3,13 +3,80 @@
 {% block title %}Imageboard - Home{% endblock %}
 
 {% block content %}
-<h1>Boards</h1>
-
-{% for board in boards %}
-<div class="board-link">
-    <a href="{{ url_for('main.board', board_name=board.name) }}">
-        /{{ board.name }}/ - {{ board.description }}
-    </a>
+<div class="welcome-banner">
+    <h1>Welcome to Yusen!</h1>
+    <div class="site-stats">
+        <div class="stat-box">
+            <span class="stat-number">{{ total_stats.total_posts }}</span>
+            <span class="stat-label">Total Posts</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-number">{{ total_stats.total_images }}</span>
+            <span class="stat-label">Images Shared</span>
+        </div>
+    </div>
 </div>
-{% endfor %}
+
+<div class="main-content">
+    <div class="boards-section">
+        <h2>Boards</h2>
+        <div class="boards-grid">
+            {% for board in boards %}
+            <div class="board-card">
+                <div class="board-header">
+                    <h3>
+                        <a href="{{ url_for('main.board', board_name=board.name) }}">
+                            /{{ board.name }}/
+                        </a>
+                    </h3>
+                    <span class="board-description">{{ board.description }}</span>
+                </div>
+                <div class="board-stats">
+                    <div class="stat">
+                        <span class="stat-label">Threads:</span>
+                        <span class="stat-value">{{ board_stats[board.id].threads }}</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Posts:</span>
+                        <span class="stat-value">{{ board_stats[board.id].posts }}</span>
+                    </div>
+                    {% if board_stats[board.id].last_post %}
+                    <div class="last-post">
+                        Last post: {{ board_stats[board.id].last_post.created_at.strftime('%Y-%m-%d %H:%M') }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="recent-activity">
+        <h2>Recent Activity</h2>
+        <div class="recent-threads">
+            {% for thread in recent_threads %}
+            <div class="recent-thread-card">
+                <div class="thread-info">
+                    <a href="{{ url_for('main.thread', board_name=thread.board.name, thread_id=thread.id) }}" class="thread-title">
+                        {{ thread.subject or "No subject" }}
+                    </a>
+                    <span class="thread-board">/{{ thread.board.name }}/</span>
+                </div>
+                <div class="thread-preview">
+                    {% if thread.image_path %}
+                    <img src="{{ url_for('static', filename='uploads/' + thread.image_path) }}"
+                         alt="Thread image"
+                         class="preview-image">
+                    {% endif %}
+                    <p class="preview-text">{{ thread.content[:200] }}{% if thread.content|length > 200 %}...{% endif %}</p>
+                </div>
+                <div class="thread-meta">
+                    <span>{{ thread.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                    <span>{{ thread.posts|length }} replies</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}
