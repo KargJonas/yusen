@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="welcome-banner">
-    <h1>Welcome to Yusen!</h1>
+    <h1>Welcome to the Yusen imageboard!</h1>
     <div class="site-stats">
         <div class="stat-box">
             <span class="stat-number">{{ total_stats.total_posts }}</span>
@@ -20,30 +20,18 @@
 <div class="main-content">
     <div class="boards-section">
         <h2>Boards</h2>
-        <div class="boards-grid">
+        <div class="boards-list">
             {% for board in boards %}
-            <div class="board-card">
-                <div class="board-header">
-                    <h3>
-                        <a href="{{ url_for('main.board', board_name=board.name) }}">
-                            /{{ board.name }}/
-                        </a>
-                    </h3>
+            <div class="board-row">
+                <div class="board-info">
+                    <a href="{{ url_for('main.board', board_name=board.name) }}" class="board-name">/{{ board.name }}/</a>
                     <span class="board-description">{{ board.description }}</span>
                 </div>
                 <div class="board-stats">
-                    <div class="stat">
-                        <span class="stat-label">Threads:</span>
-                        <span class="stat-value">{{ board_stats[board.id].threads }}</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-label">Posts:</span>
-                        <span class="stat-value">{{ board_stats[board.id].posts }}</span>
-                    </div>
+                    <span class="stat-pill">{{ board_stats[board.id].threads }} threads</span>
+                    <span class="stat-pill">{{ board_stats[board.id].posts }} posts</span>
                     {% if board_stats[board.id].last_post %}
-                    <div class="last-post">
-                        Last post: {{ board_stats[board.id].last_post.created_at.strftime('%Y-%m-%d %H:%M') }}
-                    </div>
+                    <span class="last-post">{{ board_stats[board.id].last_post.created_at.strftime('%H:%M') }}</span>
                     {% endif %}
                 </div>
             </div>

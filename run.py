@@ -11,6 +11,11 @@ def init_db():
                 Board(name='random', description='Random Discussion'),
                 Board(name='tech', description='Technology'),
                 Board(name='music', description='Music Discussion'),
+                Board(name='art', description='Art & Photography'),
+                Board(name='sci', description='Science'),
+                Board(name='gaming', description='Video Games'),
+                Board(name='fit', description='Health & Fitness'),
+                Board(name='lit', description='Literature'),
             ]
             for board in boards:
                 db.session.add(board)

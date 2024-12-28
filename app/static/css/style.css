@@ -126,48 +126,64 @@ img {
     gap: 2rem;
 }
 
-.boards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-}
-
-.board-card {
+.boards-list {
     background: white;
     border: 1px solid #d6daf0;
     border-radius: 6px;
-    padding: 1rem;
-    transition: transform 0.2s;
+    overflow: hidden;
 }
 
-.board-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+.board-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s;
 }
 
-.board-header h3 {
-    margin: 0;
-    font-size: 1.2rem;
+.board-row:not(:last-child) {
+    border-bottom: 1px solid #eee;
+}
+
+.board-row:hover {
+    background-color: #f8f9ff;
+}
+
+.board-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.board-name {
+    font-weight: 500;
+    color: #34345c;
+    text-decoration: none;
+    font-size: 0.95rem;
 }
 
 .board-description {
-    display: block;
     color: #666;
     font-size: 0.9rem;
-    margin-top: 0.5rem;
 }
 
 .board-stats {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid #eee;
-    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
 }
 
-.stat {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.3rem;
+.stat-pill {
+    background: #f0f0f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    color: #666;
+}
+
+.last-post {
+    color: #888;
+    font-size: 0.85rem;
 }
 
 .last-post {
