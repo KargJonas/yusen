@@ -24,7 +24,7 @@
                 {% for board in boards %}
                     <div class="board-row">
                         <div class="board-info">
-                            <a href="{{ url_for('main.board', board_name=board.name) }}" class="board-name">/{{ board.name }}/</a>
+                            <a href="{{ url_for('main.board', board_name=board.name) }}" class="board-name">{{ board.name }}</a>
                             <span class="board-description">{{ board.description }}</span>
                         </div>
                         <div class="board-stats">

@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block title %}
-    /{{ board.name }}/ - {{ board.description }}
+    {{ board.name }} - {{ board.description }}
 {% endblock %}
 
 {% block content %}
-    <h1>/{{ board.name }}/ - {{ board.description }}</h1>
+    <h1>{{ board.name }} - {{ board.description }}</h1>
     
     {% if current_user.is_authenticated %}
         <form action="{{ url_for('main.new_thread', board_name=board.name) }}" method="post" enctype="multipart/form-data">

@@ -150,8 +150,8 @@ img {
 
 .main-content {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
+    grid-template-columns: 3fr 2fr;
+    gap: 1rem;
 }
 
 .boards-list {
@@ -310,6 +310,16 @@ img {
 
 @media (max-width: 470px) {
     .board-stats {
+        display: none;
+    }
+}
+
+@media (max-width: 400px) {
+    body {
+        padding: 20px 8px;
+    }
+
+    .board-link {
         display: none;
     }
 }
