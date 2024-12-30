@@ -1,33 +1,33 @@
 {% extends "base.html" %}
 
 {% block title %}
-/{{ board.name }}/ - {{ thread.subject }}
+    /{{ board.name }}/ - {{ thread.subject }}
 {% endblock %}
 
 {% block content %}
-<h1>/{{ board.name }}/ - {{ thread.subject }}</h1>
-
-<div class="op-post">
-    {% if thread.image_path %}
-    <img src="{{ url_for('static', filename='uploads/' + thread.image_path) }}" alt="OP image">
-    {% endif %}
-    <p>{{ thread.content }}</p>
-    <span class="post-info">{{ thread.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</span>
-</div>
-
-<form action="{{ url_for('main.reply', board_name=board.name, thread_id=thread.id) }}" method="post" enctype="multipart/form-data">
-    <textarea name="content" required placeholder="Reply"></textarea>
-    <input type="file" name="image" accept="image/*">
-    <button type="submit">Post Reply</button>
-</form>
-
-{% for post in thread.posts %}
-<div class="post">
-    {% if post.image_path %}
-    <img src="{{ url_for('static', filename='uploads/' + post.image_path) }}" alt="Post image">
-    {% endif %}
-    <p>{{ post.content }}</p>
-    <span class="post-info">{{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</span>
-</div>
-{% endfor %}
+    <h1>/{{ board.name }}/ - {{ thread.subject }}</h1>
+    
+    <div class="op-post">
+        {% if thread.image_path %}
+            <img src="{{ url_for('static', filename='uploads/' + thread.image_path) }}" alt="OP image">
+        {% endif %}
+        <p>{{ thread.content }}</p>
+        <span class="post-info">{{ thread.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+    </div>
+    
+    <form action="{{ url_for('main.reply', board_name=board.name, thread_id=thread.id) }}" method="post" enctype="multipart/form-data">
+        <textarea name="content" required placeholder="Reply"></textarea>
+        <input type="file" name="image" accept="image/*">
+        <button type="submit">Post Reply</button>
+    </form>
+    
+    {% for post in thread.posts %}
+        <div class="post">
+            {% if post.image_path %}
+                <img src="{{ url_for('static', filename='uploads/' + post.image_path) }}" alt="Post image">
+            {% endif %}
+            <p>{{ post.content }}</p>
+            <span class="post-info">{{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+        </div>
+    {% endfor %}
 {% endblock %}

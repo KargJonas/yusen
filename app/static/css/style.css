@@ -225,6 +225,15 @@ img {
     color: #666;
 }
 
+.login-prompt {
+    background: #eef2ff;
+    border: 1px solid #d6daf0;
+    padding: 1rem;
+    margin: 1rem 0;
+    text-align: center;
+    border-radius: 4px;
+}
+
 .thread-preview {
     display: flex;
     gap: 1rem;
@@ -258,15 +267,15 @@ img {
     .main-content {
         grid-template-columns: 1fr;
     }
-
+    
     .welcome-banner {
         padding: 1.5rem;
     }
-
+    
     .welcome-banner h1 {
         font-size: 2rem;
     }
-
+    
     .boards-grid {
         grid-template-columns: 1fr;
     }
