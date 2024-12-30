@@ -45,22 +45,23 @@
                 {% for thread in recent_threads %}
                     <div class="recent-thread-card">
                         <div class="thread-info">
-                            <a href="{{ url_for('main.thread', board_name=thread.board.name, thread_id=thread.id) }}" class="thread-title">
-                                {{ thread.subject or "No subject" }}
-                            </a>
-                            <span class="thread-board">/{{ thread.board.name }}/</span>
+                            <span class="stat-pill">{{ thread.board.name }}</span>
+                            <span class="stat-pill">{{ thread.created_at.strftime('%d.%m.%Y - %H:%M') }}</span>
+                            <span class="stat-pill">{{ thread.posts|length }} replies</span>
                         </div>
-                        <div class="thread-preview">
+                        <div class="thread-preview">                           
+                            <div>
+                                <!-- Title / link to thread -->
+                                <a href="{{ url_for('main.thread', board_name=thread.board.name, thread_id=thread.id) }}" class="thread-title">{{ thread.subject or "No subject" }}</a>
+
+                                <!-- first 200 chars of post text -->
+                                <p class="preview-text">{{ thread.content[:200] }}{% if thread.content|length > 200 %}...{% endif %}</p>
+                            </div>
+
+                            <!-- Show image if there is one -->
                             {% if thread.image_path %}
-                                <img src="{{ url_for('static', filename='uploads/' + thread.image_path) }}" 
-                                     alt="Thread image" 
-                                     class="preview-image">
+                                <img src="{{ url_for('static', filename='uploads/' + thread.image_path) }}" alt="Thread image" class="preview-image">
                             {% endif %}
-                            <p class="preview-text">{{ thread.content[:200] }}{% if thread.content|length > 200 %}...{% endif %}</p>
-                        </div>
-                        <div class="thread-meta">
-                            <span>{{ thread.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
-                            <span>{{ thread.posts|length }} replies</span>
                         </div>
                     </div>
                 {% endfor %}
