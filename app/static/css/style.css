@@ -35,6 +35,14 @@ nav a {
     /* padding: 5px 10px; */
 }
 
+nav .username {
+    padding-right: 10px;
+}
+
+.sub-heading {
+    padding-bottom: 5px;
+}
+
 /* .home-link {
     border-right: 2px solid #34345c;
     padding-right: 14px;
@@ -80,18 +88,15 @@ button {
 }
 
 /* Threads and Posts */
-.thread-preview,
 .post,
 .op-post {
     background: white;
     padding: 20px;
     margin-bottom: 20px;
-    border: 1px solid #d6daf0;
 }
 
 .thread-preview h3 {
     color: #34345c;
-    margin-bottom: 10px;
 }
 
 img {
@@ -260,7 +265,6 @@ img {
 .thread-preview {
     display: flex;
     gap: 1rem;
-    margin: 0.5rem 0;
 }
 
 .preview-image {
@@ -292,15 +296,21 @@ img {
     }
     
     .welcome-banner {
-        padding: 1.5rem;
+        padding: 1rem;
     }
     
     .welcome-banner h1 {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
     
     .boards-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 470px) {
+    .board-stats {
+        display: none;
     }
 }
 

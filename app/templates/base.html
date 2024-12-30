@@ -16,8 +16,8 @@
         </div>
         <div class="nav-right">
             {% if current_user.is_authenticated %}
-                <span class="username">{{ current_user.username }}</span>
                 <a href="{{ url_for('auth.logout') }}">Logout</a>
+                <span class="username">{{ current_user.username }}</span>
             {% else %}
                 <a href="{{ url_for('auth.login') }}">Login</a>
                 <a href="{{ url_for('auth.register') }}">Register</a>
