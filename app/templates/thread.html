@@ -4,15 +4,9 @@
     /{{ board.name }}/ - {{ thread.subject }}
 {% endblock %}
 
-{% block content %}    
+{% block content %}
+    <!-- Original post -->
     <div class="op-post">
-        <h2 class="post-title">{{ thread.subject }}</h2>
-
-        <div class="post-top">
-            <p class="stat-pill"><span>Board</span> {{ board.name }}</p>
-            <p class="stat-pill"><span>OP</span> {{ op_user.username }}</p>
-            <span class="stat-pill">{{ thread.created_at.strftime('%d.%m.%Y - %H:%M') }}</span>    
-        </div>
         <div class="op-container">
             <div class="vote-buttons" data-type="thread" data-id="{{ thread.id }}">
                 <button class="vote upvote">▲</button>
@@ -20,6 +14,14 @@
                 <button class="vote downvote">▼</button>
             </div>
             <div class="content-container">
+                <h2 class="post-title">{{ thread.subject }}</h2>
+
+                <div class="post-top">
+                    <p class="stat-pill"><span>Board</span> {{ board.name }}</p>
+                    <p class="stat-pill"><span>OP</span> {{ op_user.username }}</p>
+                    <span class="stat-pill">{{ thread.created_at.strftime('%d.%m.%Y - %H:%M') }}</span>    
+                </div>
+
                 {% if thread.image_path %}
                     <img src="{{ url_for('static', filename='uploads/' + thread.image_path) }}" alt="OP image">
                 {% endif %}
@@ -28,25 +30,42 @@
         </div>
     </div>
     
+    <!-- Form for creating replies -->
     <form action="{{ url_for('main.reply', board_name=board.name, thread_id=thread.id) }}" method="post" enctype="multipart/form-data">
         <textarea name="content" required placeholder="Reply"></textarea>
-        <input type="file" name="image" accept="image/*">
-        <button type="submit">Post Reply</button>
+
+        <div class="form-bottom">
+            <div class="file-selector">
+                <label class="custom-file-upload">
+                    <input class="file-selector-input" type="file" name="image" accept="image/*">
+                    <p>Choose file</p>
+                </label>
+            </div>
+            <button type="submit">Post Reply</button>
+        </div>
     </form>
     
+    <!-- Replies -->
     {% for post in thread.posts %}
-        <div class="post">
-            <div class="vote-buttons" data-type="post" data-id="{{ post.id }}">
-                <button class="vote upvote">▲</button>
-                <span class="score">{{ post.score }}</span>
-                <button class="vote downvote">▼</button>
-            </div>
+        <div class="op-post">
+            <div class="op-container">
+                <div class="vote-buttons" data-type="thread" data-id="{{ post.id }}">
+                    <button class="vote upvote">▲</button>
+                    <span class="score">{{ post.score }}</span>
+                    <button class="vote downvote">▼</button>
+                </div>
+                <div class="content-container">
+                    <div class="post-top">
+                        <p class="stat-pill"><span>User</span> {{ op_user.username }}</p>
+                        <span class="stat-pill">{{ post.created_at.strftime('%d.%m.%Y - %H:%M') }}</span>    
+                    </div>
 
-            {% if post.image_path %}
-                <img src="{{ url_for('static', filename='uploads/' + post.image_path) }}" alt="Post image">
-            {% endif %}
-            <p>{{ post.content }}</p>
-            <span class="post-info">{{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+                    {% if post.image_path %}
+                        <img src="{{ url_for('static', filename='uploads/' + post.image_path) }}" alt="Post image">
+                    {% endif %}
+                    <p>{{ post.content }}</p>
+                </div>
+            </div>
         </div>
     {% endfor %}
 {% endblock %}

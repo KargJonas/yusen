@@ -136,14 +136,13 @@ button {
     display: flex;
     justify-content: left;
     gap: 10px;
-    margin: 0 0 10px 33px;
+    margin-bottom: 10px;
     flex-wrap: wrap;
 }
 
 .op-post .post-title {
     margin-top: 10px;
     margin-bottom: 10px;
-    margin-left: 33px;
 }
 
 .op-container {
@@ -383,6 +382,16 @@ button {
     align-items: center;
     float: left;
     margin-right: 1rem;
+    margin-top: -5px;
+}
+
+.vote-buttons .vote {
+    height: 10px;
+}
+
+.vote-buttons .score {
+    padding-top: 5px;
+    margin-bottom: -4px;
 }
 
 .vote {
@@ -444,7 +453,6 @@ button {
 @media (max-width: 350px) {
     .form-bottom {
         display: block;
-
     }
 
     .form-bottom .file-selector {
