@@ -8,6 +8,12 @@
     <h1>/{{ board.name }}/ - {{ thread.subject }}</h1>
     
     <div class="op-post">
+        <div class="vote-buttons" data-type="thread" data-id="{{ thread.id }}">
+            <button class="vote upvote">▲</button>
+            <span class="score">{{ thread.score }}</span>
+            <button class="vote downvote">▼</button>
+        </div>
+
         {% if thread.image_path %}
             <img src="{{ url_for('static', filename='uploads/' + thread.image_path) }}" alt="OP image">
         {% endif %}
@@ -23,6 +29,12 @@
     
     {% for post in thread.posts %}
         <div class="post">
+            <div class="vote-buttons" data-type="post" data-id="{{ post.id }}">
+                <button class="vote upvote">▲</button>
+                <span class="score">{{ post.score }}</span>
+                <button class="vote downvote">▼</button>
+            </div>
+
             {% if post.image_path %}
                 <img src="{{ url_for('static', filename='uploads/' + post.image_path) }}" alt="Post image">
             {% endif %}

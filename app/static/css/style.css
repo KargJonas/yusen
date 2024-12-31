@@ -16,6 +16,15 @@ body {
     padding: 20px;
 }
 
+/* Links */
+a {
+    color: #34345c;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 /* Navigation */
 nav {
     background: #d6daf0;
@@ -67,6 +76,10 @@ form {
     margin-bottom: 20px;
 }
 
+form h3 {
+    margin: 0 0 10px 0;
+}
+
 input[type="text"],
 textarea {
     width: 100%;
@@ -79,12 +92,41 @@ textarea {
     resize: vertical;
 }
 
+.custom-file-upload p,
 button {
     background: #34345c;
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    font-size: 15px;
+    height: 38px;
+    text-align: center;
+}
+
+img {
+    max-width: 250px;
+    height: auto;
+    margin: 10px 0;
+}
+
+.form-bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.file-selector input {
+    display: none;
+}
+
+.custom-file-upload p {
+    padding-top: 8px;
+}
+
+.file-name {
+    font-size: 14px;
+    color: #555;
 }
 
 /* Threads and Posts */
@@ -93,16 +135,6 @@ button {
     background: white;
     padding: 20px;
     margin-bottom: 20px;
-}
-
-.thread-preview h3 {
-    color: #34345c;
-}
-
-img {
-    max-width: 250px;
-    height: auto;
-    margin: 10px 0;
 }
 
 .post-info {
@@ -261,6 +293,10 @@ img {
     justify-content: space-between;
 }
 
+.thread-preview h3 {
+    color: #34345c;
+}
+
 .preview-image {
     max-width: 80px;
     max-height: 60px;
@@ -282,6 +318,57 @@ img {
     color: #666;
     margin-bottom: 0.5rem;
     gap: 10px;
+}
+
+.board-thread-preview {
+    border-bottom: 1px solid #d6daf0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: left;
+}
+
+.board-thread-preview .preview-content {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+}
+
+.board-thread-preview .preview-bottom {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+}
+
+.board-thread-preview .preview-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.vote-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    float: left;
+    margin-right: 1rem;
+}
+
+.vote {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #666;
+}
+
+.vote:hover {
+    color: #34345c;
+}
+
+.score {
+    font-weight: bold;
+    margin: 0.2rem 0;
 }
 
 /* Mobile Responsiveness */
@@ -319,11 +406,17 @@ img {
     }
 }
 
-/* Links */
-a {
-    color: #34345c;
-}
+@media (max-width: 350px) {
+    .form-bottom {
+        display: block;
 
-a:hover {
-    text-decoration: underline;
+    }
+
+    .form-bottom .file-selector {
+        margin-bottom: 10px;
+    }
+
+    .form-bottom button {
+        width: 100%;
+    }
 }

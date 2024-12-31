@@ -2,7 +2,7 @@ import os
 from flask import Blueprint, render_template, request, redirect, url_for, current_app, flash
 from werkzeug.utils import secure_filename
 from flask_login import current_user, login_required
-from app.models import db, Board, Thread, Post
+from app.models import Vote, db, Board, Thread, Post
 from PIL import Image
 import uuid
 
@@ -128,3 +128,32 @@ def reply(board_name, thread_id):
     db.session.commit()
     
     return redirect(url_for('main.thread', board_name=board_name, thread_id=thread_id))
+
+@main.route('/vote/<string:target_type>/<int:target_id>/<int:value>', methods=['POST'])
+@login_required
+def vote(target_type, target_id, value):
+    if value not in [-1, 1]:
+        return 'Invalid vote value', 400
+
+    # Find existing vote
+    if target_type == 'thread':
+        existing_vote = Vote.query.filter_by(thread_id=target_id, user_id=current_user.id).first()
+        target = Thread.query.get_or_404(target_id)
+        new_vote = Vote(user_id=current_user.id, thread_id=target_id, value=value)
+    elif target_type == 'post':
+        existing_vote = Vote.query.filter_by(post_id=target_id, user_id=current_user.id).first()
+        target = Post.query.get_or_404(target_id)
+        new_vote = Vote(user_id=current_user.id, post_id=target_id, value=value)
+    else:
+        return 'Invalid target type', 400
+    
+    if existing_vote:
+        if existing_vote.value == value:
+            db.session.delete(existing_vote)  # Remove vote if same value clicked
+        else:
+            existing_vote.value = value  # Change vote if different value
+    else:
+        db.session.add(new_vote)
+    
+    db.session.commit()
+    return str(target.score)

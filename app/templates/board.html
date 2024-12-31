@@ -9,10 +9,19 @@
     
     {% if current_user.is_authenticated %}
         <form action="{{ url_for('main.new_thread', board_name=board.name) }}" method="post" enctype="multipart/form-data">
+            <h3>Create a new Thread</h3>
             <input type="text" name="subject" placeholder="Subject">
             <textarea name="content" required placeholder="Comment"></textarea>
-            <input type="file" name="image" accept="image/*">
-            <button type="submit">Create Thread</button>
+            <span class="file-name">No file chosen</span>
+            <div class="form-bottom">
+                <div class="file-selector">
+                    <label class="custom-file-upload">
+                        <input class="file-selector-input" type="file" name="image" accept="image/*">
+                        <p>Choose file</p>
+                    </label>
+                </div>
+                <button type="submit">Create Thread</button>
+            </div>
         </form>
     {% else %}
         <div class="login-prompt">
@@ -22,22 +31,28 @@
         </div>
     {% endif %}
 
-    <!-- <form action="{{ url_for('main.new_thread', board_name=board.name) }}" method="post" enctype="multipart/form-data">
-        <input type="text" name="subject" placeholder="Subject">
-        <textarea name="content" required placeholder="Comment"></textarea>
-        <input type="file" name="image" accept="image/*">
-        <button type="submit">Create Thread</button>
-    </form>
-     -->
     {% for thread in threads %}
-        <div class="thread-preview">
-            <h3>{{ thread.subject }}</h3>
-            {% if thread.image_path %}
-                <img src="{{ url_for('static', filename='uploads/' + thread.image_path) }}" alt="Thread image">
-            {% endif %}
-            <p>{{ thread.content }}</p>
-            <a href="{{ url_for('main.thread', board_name=board.name, thread_id=thread.id) }}">
-                Reply ({{ thread.posts|length }} responses)
+        <div class="board-thread-preview">
+            <!-- Upvotes/downvotes -->
+            <div class="vote-buttons" data-type="thread" data-id="{{ thread.id }}">
+                <button class="vote upvote">▲</button>
+                <span class="score">{{ thread.score }}</span>
+                <button class="vote downvote">▼</button>
+            </div>
+
+            <a class="preview-content" href="{{ url_for('main.thread', board_name=board.name, thread_id=thread.id) }}">
+                <div class="preview-top">
+                    <h3>{{ thread.subject }}</h3>
+                    <p>({{ thread.posts|length }} responses)</p>
+                </div>
+
+                <div class="preview-bottom">
+                    {% if thread.image_path %}
+                        <img src="{{ url_for('static', filename='uploads/' + thread.image_path) }}" alt="Thread image">
+                    {% endif %}
+
+                    <p>{{ thread.content }}</p>
+                </div>
             </a>
         </div>
     {% endfor %}

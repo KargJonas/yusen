@@ -65,6 +65,12 @@
                         </div>
                     </div>
                 {% endfor %}
+
+                {% if recent_threads|length == 0 %}
+                    <div class="recent-thread-card">
+                        <p>No recent activity.</p>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
