@@ -76,11 +76,21 @@ def index():
                          board_stats=board_stats,
                          total_stats=total_stats)
 
+# @main.route('/<board_name>')
+# def board(board_name):
+#     board = Board.query.filter_by(name=board_name).first_or_404()
+#     threads = Thread.query.filter_by(board_id=board.id).order_by(Thread.created_at.desc()).all()
+#     boards = Board.query.all()  # Get all boards for the navigation
+#     return render_template('board.html', board=board, threads=threads, boards=boards)
+
 @main.route('/<board_name>')
 def board(board_name):
     board = Board.query.filter_by(name=board_name).first_or_404()
-    threads = Thread.query.filter_by(board_id=board.id).order_by(Thread.created_at.desc()).all()
-    boards = Board.query.all()  # Get all boards for the navigation
+    threads = Thread.query.filter_by(board_id=board.id)\
+        .options(db.joinedload(Thread.author))\
+        .order_by(Thread.created_at.desc())\
+        .all()
+    boards = Board.query.all()
     return render_template('board.html', board=board, threads=threads, boards=boards)
 
 @main.route('/<board_name>/thread/new', methods=['POST'])

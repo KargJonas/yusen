@@ -132,7 +132,7 @@ button {
     margin-bottom: 20px;
 }
 
-.op-post .post-top {
+.post-top {
     display: flex;
     justify-content: left;
     gap: 10px;
@@ -271,17 +271,6 @@ button {
     color: #34345c;
 }
 
-.last-post {
-    color: #888;
-    font-size: 0.85rem;
-}
-
-.last-post {
-    color: #666;
-    font-size: 0.8rem;
-    margin-top: 0.5rem;
-}
-
 .recent-threads {
     background: white;
     border: 1px solid #d6daf0;
@@ -352,28 +341,37 @@ button {
 
 .board-thread-preview {
     border-bottom: 1px solid #d6daf0;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
+    margin-bottom: 30px;
+    padding-bottom: 25px;
     display: flex;
     justify-content: left;
 }
 
+.board-thread-preview .stat-pill {
+    background-color: #d6daf0;
+}
+
+.board-thread-preview img {
+    max-width: 150px;
+    height: auto;
+}
+
 .board-thread-preview .preview-content {
-    display: block;
+    display: flex;
+    justify-content: left;
+    gap: 20px;
     text-decoration: none;
     color: inherit;
     width: 100%;
 }
 
-.board-thread-preview .preview-bottom {
-    display: flex;
-    justify-content: left;
-    gap: 10px;
-}
-
 .board-thread-preview .preview-top {
     display: flex;
     justify-content: space-between;
+}
+
+.board-thread-preview .pre-header {
+    display: none;
 }
 
 .vote-buttons {
@@ -412,6 +410,17 @@ button {
 }
 
 /* Mobile Responsiveness */
+@media (max-width: 1000px) {
+    .board-row {
+        display: block;
+    }
+
+    .board-stats {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+}
+
 @media (max-width: 768px) {
     .main-content {
         grid-template-columns: 1fr;
@@ -436,6 +445,18 @@ button {
 
 @media (max-width: 470px) {
     .board-stats {
+        display: none;
+    }
+
+    .board-thread-preview .preview-content {
+        flex-direction: column;
+    }
+
+    .board-thread-preview .pre-header {
+        display: block;
+    }
+
+    .board-thread-preview .post-header {
         display: none;
     }
 }

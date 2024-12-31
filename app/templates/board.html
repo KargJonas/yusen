@@ -40,18 +40,23 @@
                 <button class="vote downvote">▼</button>
             </div>
 
-            <a class="preview-content" href="{{ url_for('main.thread', board_name=board.name, thread_id=thread.id) }}">
-                <div class="preview-top">
-                    <h3>{{ thread.subject }}</h3>
-                    <p>({{ thread.posts|length }} responses)</p>
-                </div>
+            <a class="preview-content" href="{{ url_for('main.thread', board_name=board.name, thread_id=thread.id) }}">               
+                <h3 class="pre-header">{{ thread.subject }}</h3>
+                
+                {% if thread.image_path %}
+                    <img src="{{ url_for('static', filename='uploads/' + thread.image_path) }}" alt="Thread image">
+                {% endif %}
 
-                <div class="preview-bottom">
-                    {% if thread.image_path %}
-                        <img src="{{ url_for('static', filename='uploads/' + thread.image_path) }}" alt="Thread image">
-                    {% endif %}
+                <div class="preview-right">
+                    <div class="post-top">
+                        <p class="stat-pill"><span>OP</span> {{ thread.author.username }}</p>
+                        <p class="stat-pill">{{ thread.created_at.strftime('%d.%m.%Y - %H:%M') }}</>
+                        <p class="stat-pill">{{ thread.posts|length }} <span>Responses</span></p>
+                    </div>
 
-                    <p>{{ thread.content }}</p>
+                    <h3 class="post-header">{{ thread.subject }}</h3>
+
+                    <!-- <p>{{ thread.content }}</p> -->
                 </div>
             </a>
         </div>

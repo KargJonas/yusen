@@ -29,9 +29,9 @@
                         </div>
                         <div class="board-stats">
                             <span class="stat-pill">{{ board_stats[board.id].threads }} threads</span>
-                            <span class="stat-pill">{{ board_stats[board.id].posts }} posts</span>
+                            <span class="stat-pill n-posts">{{ board_stats[board.id].posts }} posts</span>
                             {% if board_stats[board.id].last_post %}
-                                <span class="last-post">{{ board_stats[board.id].last_post.created_at.strftime('%H:%M') }}</span>
+                                <span class="stat-pill"><span>Last Post</span> {{ board_stats[board.id].last_post.created_at.strftime('%H:%M') }}</span>
                             {% endif %}
                         </div>
                     </div>
