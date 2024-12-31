@@ -4,21 +4,28 @@
     /{{ board.name }}/ - {{ thread.subject }}
 {% endblock %}
 
-{% block content %}
-    <h1>/{{ board.name }}/ - {{ thread.subject }}</h1>
-    
+{% block content %}    
     <div class="op-post">
-        <div class="vote-buttons" data-type="thread" data-id="{{ thread.id }}">
-            <button class="vote upvote">▲</button>
-            <span class="score">{{ thread.score }}</span>
-            <button class="vote downvote">▼</button>
-        </div>
+        <h2 class="post-title">{{ thread.subject }}</h2>
 
-        {% if thread.image_path %}
-            <img src="{{ url_for('static', filename='uploads/' + thread.image_path) }}" alt="OP image">
-        {% endif %}
-        <p>{{ thread.content }}</p>
-        <span class="post-info">{{ thread.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+        <div class="post-top">
+            <p class="stat-pill"><span>Board</span> {{ board.name }}</p>
+            <p class="stat-pill"><span>OP</span> {{ op_user.username }}</p>
+            <span class="stat-pill">{{ thread.created_at.strftime('%d.%m.%Y - %H:%M') }}</span>    
+        </div>
+        <div class="op-container">
+            <div class="vote-buttons" data-type="thread" data-id="{{ thread.id }}">
+                <button class="vote upvote">▲</button>
+                <span class="score">{{ thread.score }}</span>
+                <button class="vote downvote">▼</button>
+            </div>
+            <div class="content-container">
+                {% if thread.image_path %}
+                    <img src="{{ url_for('static', filename='uploads/' + thread.image_path) }}" alt="OP image">
+                {% endif %}
+                <p>{{ thread.content }}</p>
+            </div>
+        </div>
     </div>
     
     <form action="{{ url_for('main.reply', board_name=board.name, thread_id=thread.id) }}" method="post" enctype="multipart/form-data">

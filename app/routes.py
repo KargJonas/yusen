@@ -1,8 +1,7 @@
 import os
 from flask import Blueprint, render_template, request, redirect, url_for, current_app, flash
-from werkzeug.utils import secure_filename
 from flask_login import current_user, login_required
-from app.models import Vote, db, Board, Thread, Post
+from app.models import User, Vote, db, Board, Thread, Post
 from PIL import Image
 import uuid
 
@@ -108,8 +107,9 @@ def new_thread(board_name):
 def thread(board_name, thread_id):
     board = Board.query.filter_by(name=board_name).first_or_404()
     thread = Thread.query.filter_by(id=thread_id, board_id=board.id).first_or_404()
+    op_user = User.query.filter_by(id=thread.user_id).first_or_404()
     boards = Board.query.all()  # Get all boards for the navigation
-    return render_template('thread.html', board=board, thread=thread, boards=boards)
+    return render_template('thread.html', board=board, thread=thread, boards=boards, op_user=op_user)
 
 @main.route('/<board_name>/thread/<int:thread_id>/reply', methods=['POST'])
 @login_required
