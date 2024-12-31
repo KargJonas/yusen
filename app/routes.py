@@ -121,7 +121,8 @@ def reply(board_name, thread_id):
     post = Post(
         content=request.form.get('content'),
         image_path=image_path,
-        thread_id=thread.id
+        thread_id=thread.id,
+        user_id=current_user.id,
     )
     
     db.session.add(post)
