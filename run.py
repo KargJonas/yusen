@@ -17,5 +17,5 @@ def init_db():
             db.session.commit()
 
 if __name__ == '__main__':
-    init_db()  # Initialize the database with some boards
-    app.run(debug=True)
+    init_db()
+    app.run(host='0.0.0.0', port=5000, debug=True)
