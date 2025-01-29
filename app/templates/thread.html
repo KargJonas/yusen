@@ -49,17 +49,16 @@
     {% for post in thread.posts %}
         <div class="op-post">
             <div class="op-container">
-                <div class="vote-buttons" data-type="thread" data-id="{{ post.id }}">
+                <div class="vote-buttons" data-type="post" data-id="{{ post.id }}">
                     <button class="vote upvote">▲</button>
                     <span class="score">{{ post.score }}</span>
                     <button class="vote downvote">▼</button>
                 </div>
                 <div class="content-container">
                     <div class="post-top">
-                        <p class="stat-pill"><span>User</span> {{ op_user.username }}</p>
+                        <p class="stat-pill"><span>User</span> {{ post.author.username }}</p>
                         <span class="stat-pill">{{ post.created_at.strftime('%d.%m.%Y - %H:%M') }}</span>    
                     </div>
-
                     {% if post.image_path %}
                         <img src="{{ url_for('static', filename='uploads/' + post.image_path) }}" alt="Post image">
                     {% endif %}

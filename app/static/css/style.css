@@ -461,7 +461,7 @@ button {
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
     body {
         padding: 20px 8px;
     }

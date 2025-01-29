@@ -1,6 +1,7 @@
 import os
-from flask import Blueprint, render_template, request, redirect, url_for, current_app, flash
+from flask import Blueprint, render_template, request, redirect, url_for, current_app
 from flask_login import current_user, login_required
+from app import login_manager
 from app.models import User, Vote, db, Board, Thread, Post
 from PIL import Image
 import uuid
@@ -71,17 +72,10 @@ def index():
     }
     
     return render_template('index.html', 
-                         boards=boards, 
-                         recent_threads=recent_threads,
-                         board_stats=board_stats,
-                         total_stats=total_stats)
-
-# @main.route('/<board_name>')
-# def board(board_name):
-#     board = Board.query.filter_by(name=board_name).first_or_404()
-#     threads = Thread.query.filter_by(board_id=board.id).order_by(Thread.created_at.desc()).all()
-#     boards = Board.query.all()  # Get all boards for the navigation
-#     return render_template('board.html', board=board, threads=threads, boards=boards)
+        boards=boards, 
+        recent_threads=recent_threads,
+        board_stats=board_stats,
+        total_stats=total_stats)
 
 @main.route('/<board_name>')
 def board(board_name):
@@ -113,10 +107,20 @@ def new_thread(board_name):
     
     return redirect(url_for('main.thread', board_name=board_name, thread_id=thread.id))
 
+# @main.route('/<board_name>/thread/<int:thread_id>')
+# def thread(board_name, thread_id):
+#     board = Board.query.filter_by(name=board_name).first_or_404()
+#     thread = Thread.query.filter_by(id=thread_id, board_id=board.id).first_or_404()
+#     op_user = User.query.filter_by(id=thread.user_id).first_or_404()
+#     boards = Board.query.all()  # Get all boards for the navigation
+#     return render_template('thread.html', board=board, thread=thread, boards=boards, op_user=op_user)
+
 @main.route('/<board_name>/thread/<int:thread_id>')
 def thread(board_name, thread_id):
     board = Board.query.filter_by(name=board_name).first_or_404()
-    thread = Thread.query.filter_by(id=thread_id, board_id=board.id).first_or_404()
+    thread = Thread.query.filter_by(id=thread_id, board_id=board.id)\
+        .options(db.joinedload(Thread.posts).joinedload(Post.author))\
+        .first_or_404()
     op_user = User.query.filter_by(id=thread.user_id).first_or_404()
     boards = Board.query.all()  # Get all boards for the navigation
     return render_template('thread.html', board=board, thread=thread, boards=boards, op_user=op_user)
@@ -140,11 +144,18 @@ def reply(board_name, thread_id):
     
     return redirect(url_for('main.thread', board_name=board_name, thread_id=thread_id))
 
-@main.route('/vote/<string:target_type>/<int:target_id>/<int:value>', methods=['POST'])
+@login_manager.unauthorized_handler
+def unauthorized():
+    return 'Unauthorized', 401
+
+@main.route('/vote/<string:target_type>/<int:target_id>/<value>', methods=['POST'])
 @login_required
 def vote(target_type, target_id, value):
-    if value not in [-1, 1]:
+
+    if value not in ["up", "down"]:
         return 'Invalid vote value', 400
+
+    value = 1 if value == "up" else -1
 
     # Find existing vote
     if target_type == 'thread':

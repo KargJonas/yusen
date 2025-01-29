@@ -3,3 +3,4 @@ Flask-SQLAlchemy
 pillow
 python-dotenv
 flask-login
+gunicorn
