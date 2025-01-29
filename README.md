@@ -19,6 +19,8 @@ A lightweight imageboard built with Flask, JINJA2 and SQLite.
 - **Image Processing**: Pillow
 - **Frontend**: HTML5, CSS3
 
+![screenshots](screenshots.png)
+
 ## Setup
 
 1. Create and activate a virtual environment:
